@@ -32,13 +32,15 @@ const productDisplay = {
                     <button class="button" :disabled='!inStock' @click="addToCart" :class="{disabledButton: !inStock}">Add To
                         Cart</button>
                 </div>
+                <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+                <review-form @review-submitted="addReview"></review-form>
             </div>
            
         `,
         props: {
             premium: Boolean
             },
-          setup(props) {
+          setup(props,{emit}) {
             const shipping = computed(()=>{
                 if (props.premium){
                      return 'Free'
@@ -47,7 +49,7 @@ const productDisplay = {
                     }
                    
                 })
-                            
+            const reviews = ref([])                
             const product = ref('Boots')
             const producurl = ref('http://www.camt.cmu.ac.th')
             const brand = ref('SE 331')
@@ -82,6 +84,7 @@ const productDisplay = {
             })
             function addToCart() {
                 cart.value += 1
+                emit('add-to-cart', variants.value[selectedVariant.value].id)
             }
             const title = computed(() => {
                 return brand.value + ' ' + product.value
@@ -95,9 +98,15 @@ const productDisplay = {
                 }
                 return '';
             })
+            function addReview(review){
+                reviews.value.push(review)
+                }
+                
             return {
                 product,
                 producurl,
+                reviews,
+                addReview,
                 brand,
                 title,
                 onSale,

@@ -40,11 +40,13 @@
             </div>
             <button class="button" :disabled='!inStock' @click="addToCart" :class="{disabledButton: !inStock}">Add To Cart</button>      
        </div> -->
-       <product-display :premium="premium"></product-display>
+       <product-display :premium="premium" @add-to-cart="updateCart"></product-display>
     </div>
 
     <!-- Import Js -->
      <script src="./components//ProductDisplay.js"></script>
+     <script src="./components/ReviewForm.js"></script>
+     <script src="./components/ReviewList.js"></script>
     <script src="./main.js"></script>
 </body>
 
