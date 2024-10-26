@@ -21,7 +21,7 @@ const app = createApp({
     }
   
 })
-
+app.component('product-detail', productDisplay)
 app.component('product-display', productDisplay)
 app.component('review-form', reviewForm)
 app.component('review-list',reviewList)
